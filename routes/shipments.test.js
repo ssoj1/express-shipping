@@ -15,4 +15,16 @@ describe("POST /", function () {
 
     expect(resp.body).toEqual({ shipped: expect.any(Number) });
   });
+
+  test("invalid input", async function () {
+    const resp = await (await request(app).post("/shipments").send({
+      name: "Test Tester",
+      addr: "100 Test St",
+      zip: "12345-6789",
+    }));
+
+    expect(resp.statusCode).toEqual(400);
+  });
 });
+
+
